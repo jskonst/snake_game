@@ -4,7 +4,7 @@ interface IDisplayable {
     display(): void;
 }
 
-export class Grid implements IDisplayable{
+export class Grid implements IDisplayable {
     grid: Cell[][];
     constructor(width: number, height: number) {
         this.grid = [];
@@ -16,23 +16,32 @@ export class Grid implements IDisplayable{
         }
     }
     display(): void {
-        for (let row of this.grid){
+        for (let row of this.grid) {
             let rowStr = ""
             for (let item of row) {
                 rowStr += `${item.x}.${item.y} `;
             }
             console.log(rowStr)
         }
-        
+
     }
 }
 
-export class Cell implements IDisplayable{
+export enum CellState {
+    Empty,
+    Snake,
+    Food,
+    Border,
+};
+
+export class Cell implements IDisplayable {
     x: number = 0;
     y: number = 0;
+    state: CellState;
     constructor(xCord: number, yCord: number) {
         this.x = xCord;
         this.y = yCord;
+        this.state = CellState.Empty;
     }
     display() {
         console.log(`x = ${this.x}, y = ${this.y}`)
